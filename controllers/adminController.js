@@ -1,6 +1,10 @@
 const Blog = require("../models/Blog");
+const multer = require("multer");
+
 const { formatDate } = require("../utils/jalali");
+const { storage, fileFilter } = require("../utils/multer");
 const { get500 } = require("./errorController");
+const uuid = require("uuid").v4;
 
 exports.getDashboard = async (req, res) => {
   try {
@@ -52,4 +56,27 @@ exports.createPost = async (req, res) => {
       errors: errorArr,
     });
   }
+};
+
+exports.uploadImage = (req, res) => {
+  const upload = multer({
+    limits: { fileSize: 4000000 },
+    dest: "uploads/",
+    storage: storage,
+    fileFilter: fileFilter,
+  }).single("image");
+  //req.file
+  // console.log(req.file)
+
+  upload(req, res, (err) => {
+    if (err) {
+      res.send(err);
+    } else {
+      if (req.file) {
+        res.status(200).send("آپلود عکس موفقیت آمیز بود");
+      } else {
+        res.send("جهت آپلود باید عکسی انتخاب کنید");
+      }
+    }
+  });
 };

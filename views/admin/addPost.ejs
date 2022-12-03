@@ -1,4 +1,4 @@
-<div class="content-wrapper p-3">
+<!-- <div class="content-wrapper p-3">
 
     <section class="content">
 
@@ -9,45 +9,137 @@
 
             <form role="form" action="/dashboard/add-post" class="w-50" method="POST">
                 <%- include("../includes/validationErrors.ejs") %>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="titleInput">Title</label>
-                        <input type="text" class="form-control w-50" name="title" id="title" />
-                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="titleInput">Title</label>
+                            <input type="text" class="form-control w-50" name="title" id="title" />
+                        </div>
 
-                    <div class="form-group">
-                        <label>Status</label>
-                        <select name="status" class="form-control w-25" id="status">
-                            <option value="عمومی" selected>عمومی</option>
-                            <option value="خصوصی">خصوصی</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" class="form-control w-25" id="status">
+                                <option value="عمومی" selected>عمومی</option>
+                                <option value="خصوصی">خصوصی</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="Textarea">Body</label>
-                        <textarea name="body" class="form-control" id="body"></textarea>
-                    </div>
+                        <div class="form-group">
+                            <label for="Textarea">Body</label>
+                            <textarea name="body" class="form-control" id="body"></textarea>
+                        </div>
 
-                    <!-- <div class="form-group">
-                        <label for="exampleInputFile">File input</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <!-- <div class="form-group">
+                            <label for="selectedImage">Image input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="selectedImage">
+                                    <label class="custom-file-label" id="imageStatus" for="selectedImage">Choose
+                                        file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="">Upload</span>
+                                </div>
                             </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="">Upload</span>
+                        </div> -->
+
+<!-- 
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button
+                                    class="btn btn-sm btn-outline-secondary"
+                                    type="button"
+                                    id="imageUpload"
+                                >
+                                    آپلود عکس
+                                </button>
+                            </div>
+                            <div class="custom-file">
+                                <input
+                                    type="file"
+                                    class="custom-file-input"
+                                    id="selectedImage"
+                                />
+                                <label
+                                    id="imageStatus"
+                                    class="custom-file-label"
+                                    for="selectedImage"
+                                >
+                                    عکس مورد نظر را انتخاب کنید
+                                </label>
                             </div>
                         </div>
-                    </div>  -->
+                
+                    </div>
 
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                    <input type="submit" value="Create Post" class="btn btn-success m-2" />
-                </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Create Post" class="btn btn-success m-2" />
+                    </div>
             </form>
         </div>
 </div>
+</div> -->
+
+
+
+<h3 class="mt-2 text-center">ساخت پست جدید</h3>
+<div class="w-50 mx-auto">
+    <%- include("../includes/validationErrors.ejs") %>
+</div>
+<div class="d-flex align-items-center justify-content-center">
+    <form action="/dashboard/add-post" class="w-50" method="POST">
+        <div class="form-group">
+            <label for="title">عنوان پست</label>
+            <input
+                type="text"
+                class="form-control w-50"
+                name="title"
+                id="title"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="status">وضعیت</label>
+            <select name="status" class="form-control w-25" id="status">
+                <option value="عمومی" selected>عمومی</option>
+                <option value="خصوصی">خصوصی</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button
+                    class="btn btn-sm btn-outline-secondary"
+                    type="button"
+                    id="imageUpload"
+                >
+                    آپلود عکس
+                </button>
+            </div>
+            <div class="custom-file">
+                <input
+                    type="file"
+                    class="custom-file-input"
+                    id="selectedImage"
+                />
+                <label
+                    id="imageStatus"
+                    class="custom-file-label"
+                    for="selectedImage"
+                >
+                    عکس مورد نظر را انتخاب کنید
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5>متن اصلی پست</h5>
+            <textarea name="body" class="form-control" id="body"></textarea>
+        </div>
+
+        <div class="row">
+            <input type="submit" value="ساخت پست" class="btn btn-success m-2" />
+            <a href="/dashboard" class="btn btn-warning m-2">انصراف</a>
+        </div>
+    </form>
 </div>
