@@ -33,48 +33,62 @@
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
     <!-- Custom style for RTL -->
     <link rel="stylesheet" href="/admin/css/custom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.15.1/ckeditor.js"
+        integrity="sha512-aThGT4RJc95+zt2vrs8iMjrFpsJxcFclp7tweVls6/3cNo3GWvGvtLV576o8Kdvdf3fJhrrG3wkmoea/KJMLFQ=="
+        crossorigin="anonymous"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
 
-    <%- body %>
+    <%- include('../includes/admin/navbar.ejs') %>
+        <%- include('../includes/admin/sidebar.ejs') %>
 
-        <!-- jQuery -->
-        <script src="/admin/plugins/jquery/jquery.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="/admin/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-        <script>
-            $.widget.bridge('uibutton', $.ui.button)
-        </script>
-        <!-- Bootstrap 4 rtl -->
-        <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>
-        <!-- Bootstrap 4 -->
-        <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- ChartJS -->
-        <script src="/admin/plugins/chart.js/Chart.min.js"></script>
-        <!-- Sparkline -->
-        <script src="/admin/plugins/sparklines/sparkline.js"></script>
-        <!-- JQVMap -->
-        <script src="/admin/plugins/jqvmap/jquery.vmap.min.js"></script>
-        <script src="/admin/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="/admin/plugins/jquery-knob/jquery.knob.min.js"></script>
-        <!-- daterangepicker -->
-        <script src="/admin/plugins/moment/moment.min.js"></script>
-        <script src="/admin/plugins/daterangepicker/daterangepicker.js"></script>
-        <!-- Tempusdominus Bootstrap 4 -->
-        <script src="/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-        <!-- Summernote -->
-        <script src="/admin/plugins/summernote/summernote-bs4.min.js"></script>
-        <!-- overlayScrollbars -->
-        <script src="/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="/admin/js/adminlte.js"></script>
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="/admin/js/pages/dashboard.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="/admin/js/demo.js"></script>
+            <%- body %>
+
+                <%- include('../includes/admin/footer.ejs') %>
+
+                    <script>
+                        CKEDITOR.replace("body", {
+                            language: "fa",
+                        });
+                    </script>
+
+                    <!-- jQuery -->
+                    <script src="/admin/plugins/jquery/jquery.min.js"></script>
+                    <!-- jQuery UI 1.11.4 -->
+                    <script src="/admin/plugins/jquery-ui/jquery-ui.min.js"></script>
+                    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+                    <script>
+                        $.widget.bridge('uibutton', $.ui.button)
+                    </script>
+                    <!-- Bootstrap 4 rtl -->
+                    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>
+                    <!-- Bootstrap 4 -->
+                    <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+                    <!-- ChartJS -->
+                    <script src="/admin/plugins/chart.js/Chart.min.js"></script>
+                    <!-- Sparkline -->
+                    <script src="/admin/plugins/sparklines/sparkline.js"></script>
+                    <!-- JQVMap -->
+                    <script src="/admin/plugins/jqvmap/jquery.vmap.min.js"></script>
+                    <script src="/admin/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
+                    <!-- jQuery Knob Chart -->
+                    <script src="/admin/plugins/jquery-knob/jquery.knob.min.js"></script>
+                    <!-- daterangepicker -->
+                    <script src="/admin/plugins/moment/moment.min.js"></script>
+                    <script src="/admin/plugins/daterangepicker/daterangepicker.js"></script>
+                    <!-- Tempusdominus Bootstrap 4 -->
+                    <script src="/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+                    <!-- Summernote -->
+                    <script src="/admin/plugins/summernote/summernote-bs4.min.js"></script>
+                    <!-- overlayScrollbars -->
+                    <script src="/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+                    <!-- AdminLTE App -->
+                    <script src="/admin/js/adminlte.js"></script>
+                    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+                    <script src="/admin/js/pages/dashboard.js"></script>
+                    <!-- AdminLTE for demo purposes -->
+                    <script src="/admin/js/demo.js"></script>
 </body>
 
 </html>

@@ -28,8 +28,8 @@ const app = express();
 
 //* Logging
 if (process.env.NODE_ENV === "development") {
-    debug("Morgan Enabled");
-    app.use(morgan("combined", { stream: winston.stream }));
+  debug("Morgan Enabled");
+  app.use(morgan("combined", { stream: winston.stream }));
 }
 
 //* View Engine
@@ -43,12 +43,13 @@ app.use(express.urlencoded({ extended: false }));
 
 //* Session
 app.use(
-    session({
-        secret: "secret",
-        resave: false,
-        saveUninitialized: false,
-        store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    })
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    unset: "destroy",
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  })
 );
 
 //* Passport
@@ -64,17 +65,13 @@ app.use(express.static(path.join(__dirname, "public")));
 //* Routes
 app.use("/", require("./routes/blog"));
 app.use("/users", require("./routes/users"));
-app.use("/dashboard", require("./routes/dashboard"));
+app.use("/dashboard", require("./routes/admin"));
 
 //* 404 Page
-app.use((req, res) => {
-    res.render("404", { pageTitle: "صفحه پیدا نشد | 404", path: "/404" });
-});
+app.use(require("./controllers/errorController").get404);
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () =>
-    console.log(
-        `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-    )
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );

@@ -22,6 +22,7 @@
         "express": "^4.17.1",
         "express-ejs-layouts": "^2.5.0",
         "express-session": "^1.17.1",
+        "jalali-moment": "^3.3.11",
         "mongoose": "^5.10.9",
         "morgan": "^1.10.0",
         "node-fetch": "^2.6.1",

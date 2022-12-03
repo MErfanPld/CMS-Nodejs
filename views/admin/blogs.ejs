@@ -1,0 +1,40 @@
+<% if (blogs.length> 0) { %>
+  <div class="card-body table-responsive p-0">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Create at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let blog of blogs) { %>
+          <tr>
+            <td>183</td>
+            <td><%= fullname %></td>
+            <td><a href="/blogs/<%= blog._id %>"><%= blog.title %></a>
+            </td>
+            <td>
+              <span class="badge <%= blog.status === " عمومی" ? 'badge-success' : 'badge-warning' %>">
+                <%= blog.status %>
+              </span>
+            </td>
+            <td>
+              <%= formatDate(blog.createdAt) %>
+            </td>
+
+          </tr>
+          <% } %>
+      </tbody>
+    </table>
+  </div>
+  <% } else { %>
+    <div class="text-center">
+      <h3 class="mt-2">
+        در حال حاضر هیچ پستی توسط شما در پایگاه داده ثبت نشده است
+      </h3>
+    </div>
+    <% } %>
