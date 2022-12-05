@@ -33,4 +33,8 @@ router.get("/delete-post/:id", authenticated, adminController.deletePost);
 //  @route  POST /dashboard/image-upload
 router.post("/image-upload", authenticated, adminController.uploadImage);
 
+//  @desc   Dashboard Handle Search
+//  @route  POST /dashboard/search
+router.post("/search", authenticated, adminController.handleDashSearch);
+
 module.exports = router;
