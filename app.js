@@ -2,6 +2,7 @@ const path = require("path");
 
 const debug = require("debug")("weblog-project");
 const express = require("express");
+const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 const expressLayout = require("express-ejs-layouts");
 const passport = require("passport");
@@ -40,6 +41,9 @@ app.set("views", "views");
 
 //* BodyPaser
 app.use(express.urlencoded({ extended: false }));
+
+//* File Upload Middleware
+app.use(fileUpload());
 
 //* Session
 app.use(

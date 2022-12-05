@@ -2,11 +2,13 @@ const Blog = require("../models/Blog");
 const multer = require("multer");
 const sharp = require("sharp");
 const shortId = require("shortid");
+const fs = require('fs')
 
 const { formatDate } = require("../utils/jalali");
 const { storage, fileFilter } = require("../utils/multer");
 const { get500 } = require("./errorController");
 const uuid = require("uuid").v4;
+const appRoot = require("app-root-path");
 
 exports.getDashboard = async (req, res) => {
   const page = +req.query.page || 1;
@@ -52,9 +54,29 @@ exports.getAddPost = async (req, res) => {
 exports.createPost = async (req, res) => {
   const errorArr = [];
 
+  const thumbnail = req.files ? req.files.thumbnail : {};
+  const fileName = `${shortId.generate()}_${thumbnail.name}`;
+  const uploadPath = `${appRoot}/public/uploads/thumbnails/${fileName}`;
+
+  console.log(thumbnail);
+
   try {
+    req.body = { ...req.body, thumbnail };
+
+    console.log(req.body);
+
     await Blog.postValidation(req.body);
-    await Blog.create({ ...req.body, user: req.user.id });
+
+    await sharp(thumbnail.data)
+      .jpeg({ quality: 60 })
+      .toFile(uploadPath)
+      .catch((err) => console.log(err));
+
+    await Blog.create({
+      ...req.body,
+      user: req.user.id,
+      thumbnail: fileName,
+    });
     res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
@@ -99,41 +121,71 @@ exports.getEditPost = async (req, res) => {
 exports.editPost = async (req, res) => {
   const errorArr = [];
 
+  const thumbnail = req.files ? req.files.thumbnail : {};
+  const fileName = `${shortId.generate()}_${thumbnail.name}`;
+  const uploadPath = `${appRoot}/public/uploads/thumbnails/${fileName}`;
+
   const post = await Blog.findOne({ _id: req.params.id });
   try {
-    await Blog.postValidation(req.body);
+      if (thumbnail.name)
+          await Blog.postValidation({ ...req.body, thumbnail });
+      else
+          await Blog.postValidation({
+              ...req.body,
+              thumbnail: {
+                  name: "placeholder",
+                  size: 0,
+                  mimetype: "image/jpeg",
+              },
+          });
 
-    if (!post) {
-      return res.redirect("errors/404");
-    }
+      if (!post) {
+          return res.redirect("errors/404");
+      }
 
-    if (post.user.toString() != req.user._id) {
-      return res.redirect("/dashboard");
-    } else {
-      const { title, status, body } = req.body;
-      post.title = title;
-      post.status = status;
-      post.body = body;
+      if (post.user.toString() != req.user._id) {
+          return res.redirect("/dashboard");
+      } else {
+          if (thumbnail.name) {
+              fs.unlink(
+                  `${appRoot}/public/uploads/thumbnails/${post.thumbnail}`,
+                  async (err) => {
+                      if (err) console.log(err);
+                      else {
+                          await sharp(thumbnail.data)
+                              .jpeg({ quality: 60 })
+                              .toFile(uploadPath)
+                              .catch((err) => console.log(err));
+                      }
+                  }
+              );
+          }
 
-      await post.save();
-      return res.redirect("/dashboard");
-    }
+          const { title, status, body } = req.body;
+          post.title = title;
+          post.status = status;
+          post.body = body;
+          post.thumbnail = thumbnail.name ? fileName : post.thumbnail;
+
+          await post.save();
+          return res.redirect("/dashboard");
+      }
   } catch (err) {
-    console.log(err);
-    err.inner.forEach((e) => {
-      errorArr.push({
-        name: e.path,
-        message: e.message,
+      console.log(err);
+      err.inner.forEach((e) => {
+          errorArr.push({
+              name: e.path,
+              message: e.message,
+          });
       });
-    });
-    res.render("admin/editPost", {
-      pageTitle: "بخش مدیریت | ویرایش پست",
-      path: "/dashboard/edit-post",
-      layout: "./layouts/adminLayout",
-      fullname: req.user.fullname,
-      errors: errorArr,
-      post,
-    });
+      res.render("admin/editPost", {
+          pageTitle: "بخش مدیریت | ویرایش پست",
+          path: "/dashboard/edit-post",
+          layout: "./layouts/adminLayout",
+          fullname: req.user.fullname,
+          errors: errorArr,
+          post,
+      });
   }
 };
 
