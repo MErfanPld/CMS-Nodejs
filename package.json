@@ -30,6 +30,8 @@
         "nodemon": "^2.0.20",
         "passport": "^0.4.1",
         "passport-local": "^1.0.0",
+        "sharp": "^0.31.2",
+        "shortid": "^2.2.16",
         "uuid": "^9.0.0",
         "winston": "^3.3.3",
         "yup": "^0.29.3"

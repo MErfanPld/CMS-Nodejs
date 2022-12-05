@@ -8,7 +8,7 @@ const blogSchmea = new mongoose.Schema({
     required: true,
     trim: true,
     minlength: 5,
-    maxlength: 255,
+    maxlength: 100,
   },
   body: {
     type: String,
@@ -16,8 +16,8 @@ const blogSchmea = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: "عمومی",
-    enum: ["عمومی", "خصوصی"],
+    default: "public",
+    enum: ["private", "public"],
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
